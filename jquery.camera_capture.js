@@ -30,13 +30,13 @@
     };
 
   var _handleError = function() {
-    $(document).trigger('camera_capture.stream_error', [error]);    
+    $(window).trigger('camera_capture.stream_error', [error]);    
   }
 
   var _init = function() {
       if(plugin.getBrowser() != ("Chrome" || "Firefox")) {
         console.log("Your browser does not support the MediaRecorder API");
-        $(document).trigger('camera_capture.browser_not_supported');
+        $(window).trigger('camera_capture.browser_not_supported');
       } else {
         navigator.getUserMedia = navigator.getUserMedia || 
                   navigator.webkitGetUserMedia || 
@@ -124,7 +124,7 @@
       video.volume = 1;
       video.currentTime = 0;
     };
-    $(document).trigger('camera_capture.start_recording', [plugin.settings.maxVideoLength]);
+    $(window).trigger('camera_capture.start_recording', [plugin.settings.maxVideoLength]);
   }
 
   var _uuid = function() {
@@ -177,11 +177,11 @@
       plugin.media_recorder.stop();
       plugin._blob = new Blob(plugin._chunks, {"type": "video/webm"});
       plugin._chunks = [];
-      $(document).trigger('camera_capture.stop_recording');
+      $(window).trigger('camera_capture.stop_recording');
     },
 
     saveRecording: function() {
-      $(document).trigger('camera_capture.init_save');
+      $(window).trigger('camera_capture.init_save');
       var filename = _uuid() + ".webm";
       var data = new FormData();
       data.append('file_name', filename);
@@ -193,10 +193,10 @@
         contentType: false,
         processData: false,
         success: function(data) {
-          $(document).trigger('camera_capture.save_success', [filename]);
+          $(window).trigger('camera_capture.save_success', [filename]);
         },  
         error: function() {
-          $(document).trigger('camera_capture.save_failed');
+          $(window).trigger('camera_capture.save_failed');
         }
       });        
     },
@@ -208,7 +208,7 @@
       video.pause();
       video.src = '';
       plugin._chunks = [];
-      $(document).trigger('camera_capture.trashed_recording');
+      $(window).trigger('camera_capture.trashed_recording');
     },
 
     getBrowser: function() {

@@ -118,6 +118,9 @@
 <p><em>(Note: An example upload.php file is included in the download.</em>)
 
 <h2>Settings</h2>
+<p>I've tried to offer enough settings to allow CameraCapture to be pretty flexible without being difficult to set up. You can configure these when you call the plugin, like so:</p>
+<pre><code>$('#video').cameraCapture({scaleVideo:false, uploadURL:"upload.php"});</code></pre>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tr>
     <th>Name</th>
@@ -179,7 +182,7 @@
     <td>scaleVideo</td>
     <td>Boolean</td>
     <td>True</td>
-    <td>Whether or not to scale the video displayed in the browser up or down.</td>
+    <td>Whether or not to scale the video displayed in the browser up or down.<br><em>Note: If you want your videos to be responsive via CSS, this should be false.</em></td>
   </tr>
   <tr>
     <td>videoScaleFactor</td>
@@ -224,38 +227,50 @@
 
 <h2>Events</h2>
 <p>The plugin also fires events for almost everything it does. This allows you to do things like gracefully handle errors, toggle visability/state of record and save controls, etc.</p>
+<p>Example:</p>
+<pre><code>$(window).on('camera_capture.save_success', function(filename) {
+  console.log("File saved as: " + filename);
+});</code></pre>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tr>
     <th>Name</th>
+    <th>Returns</th>
     <th>Description</th>
   </tr>
   <tr>
     <td>camera_capture.browser_not_supported</td>
+    <td><em>empty</em></td>
     <td>Triggered if the user's browser does not support the MediaRecorder API</td>
   </tr>
   <tr>
     <td>camera_capture.start_recording</td>
+    <td><em>empty</em></td>
     <td>Triggered when the plguin begins capturing video.</td>
   </tr>
   <tr>
     <td>camera_capture.stop_recording</td>
+    <td><em>empty</em></td>
     <td>Triggered when the plugin stops capturing video.</td>
   </tr>
   <tr>
     <td>camera_capture.init_save</td>
+    <td><em>empty</em></td>
     <td>Triggered when <code>saveRecording</code> is called.</td>
   </tr>
   <tr>
     <td>camera_capture.save_success</td>
+    <td>filename</td>
     <td>Triggered when <code>saveRecording</code> finishes successfully.</td>
   </tr>
   <tr>
     <td>camera_capture.save_failed</td>
+    <td><em>empty</em></td>
     <td>Triggered when <code>saveRecording</code> fails its AJAX request.</td>
   </tr>
   <tr>
     <td>camera_capture.stream_error</td>
+    <td><em>empty</em></td>
     <td>Triggered when there is a stream error while capturing video.</td>
   </tr>
 </table>
