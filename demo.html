@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Camera Capture Demo</title>
+  <style>
+    video {
+      background:#000;
+      display:block;
+    }
+  </style>
+</head>
+<body>
+  <div id="video"></div>
+  <br>
+  <p>Note: To save the file using the sample php script provided, this directory must be writeable.</p>
+  <script src="//code.jquery.com/jquery.min.js"></script>
+  <script src="jquery.camera_capture.js"></script>
+  <script>
+    $('#video').cameraCapture({
+      uploadURL: "upload.php"
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Camera Capture</title>
+  <meta name="author" content="Kelli Shaver">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background:#ddd;
+      font-family:helvetica, arial, sans-serif;
+      margin:0;
+      padding:0;
+    }
+    #container {
+      background:#fff;
+      margin:2em auto;
+      max-width:80%;
+      padding:2em;
+    }
+    h1 {
+      margin-top:0;
+    }
+    h2 {
+      margin-top:2em;
+      border-bottom:1px solid #ccc;
+    }
+    pre {
+      background:#eee;
+      border:1px solid #ddd;
+      padding:1em;
+    }
+    a.dl {
+      background:#5a6;
+      color:#fff;
+      display:inline-block;
+      font-size:20px;
+      font-weight:bold;
+      padding:0.75em 1em;
+      text-decoration:none;
+    }
+    em {
+      color:#777;
+    }
+    table {
+      margin-top:1em;
+    }
+    th {
+      text-align:left;
+      border-bottom:2px solid #999;
+      padding:0.5em;
+    }
+    td {
+      font-size:11pt;
+      padding:0.5em;
+      vertical-align:top;
+    }
+    td em {
+      color:#aaa;
+    }
+    tr:nth-child(even) {
+      background:#eee;
+    }
+    footer {
+      border-top:1px solid #ddd;
+      font-size:11px;
+      margin-top:2em;
+      padding-top:2em;
+      text-align:center;
+    }
+    footer a {
+      color:#05a;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+<h1>jQuery Camera Capture</h1>
+<p>jQuery Camera Capture is a plugin that allows you to easily use the MediaRecorder API to capture video from a user's webcam.</p>
+
+<h2>Example</h2>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Camera Capture Demo&lt;/title&gt;
+  &lt;style&gt;
+    video {
+      background:#000;
+      display:block;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="video"&gt;&lt;/div&gt;
+  &lt;script src="//code.jquery.com/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script src="jquery.camera_capture.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    $('#video').cameraCapture({
+      uploadURL: "upload.php"
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<a class="dl" href="https://github.com/kellishaver/jquery-camera-capture/archive/master.zip">Download</a>
+<p><em>(Note: an example upload.php file is included in the download.</em>)
+
+<h2>Settings</h2>
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+  <tr>
+    <th>Name</th>
+    <th width="100">Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>width</td>
+    <td>Integer</td>
+    <td>320</td>
+    <td>The width of the video being recorded.</td>
+  </tr>
+  <tr>
+    <td>height</td>
+    <td>Integer</td>
+    <td>240</td>
+    <td>The height of the video being recorded.</td>
+  </tr>
+  <tr>
+    <td>uploadURL</td>
+    <td>String</td>
+    <td><em>empty</em></td>
+    <td>The URL to POST the video to upon saving.</td>
+  </tr>
+  <tr>
+    <td>recordButtonHTML</td>
+    <td>HTML String</td>
+    <td>
+      <code>&lt;button class="camera-capture-record-button"&gt;Record&lt;/button&gt;</code>
+    </td>
+    <td>The HTML markup for the record button</td>
+  </tr>
+  <tr>
+    <td>stopButtonHTML</td>
+    <td>HTML String</td>
+    <td>
+      <code>&lt;button class="camera-capture-stop-button"&gt;Stop&lt;/button&gt;</code>
+    </td>
+    <td>The HTML markup for the stop button</td>
+  </tr>
+  <tr>
+    <td>saveButtonHTML</td>
+    <td>HTML String</td>
+    <td>
+      <code>&lt;button class="camera-capture-save-button"&gt;Save&lt;/button&gt;</code>
+    </td>
+    <td>The HTML markup for the save button</td>
+  </tr>
+  <tr>
+    <td>trashButtonHTML</td>
+    <td>HTML String</td>
+    <td>
+      <code>&lt;button class="camera-capture-trash-button"&gt;Trash&lt;/button&gt;</code>
+    </td>
+    <td>The HTML markup for the trash button</td>
+  </tr>
+  <tr>
+    <td>scaleVideo</td>
+    <td>Boolean</td>
+    <td>True</td>
+    <td>Whether or not to scale the video displayed in the browser up or down.</td>
+  </tr>
+  <tr>
+    <td>videoScaleFactor</td>
+    <td>Float</td>
+    <td>2.0</td>
+    <td>The factor by which to scale the video if <code>scaleVideo</code> is true.</td>
+  </tr>
+</table>
+
+<h2>Public Methods</h2>
+<p>In addition to creating controls for video recording and saving, their public methods are also exposed.</p>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>startRecording</td>
+    <td>Start a video stream from the user's webcam and begin capturing it.</td>
+  </tr>
+  <tr>
+    <td>stopRecording</td>
+    <td>Stop capturing video from the user's webcam and load it into the preview for playback.</td>
+  </tr>
+  <tr>
+    <td>saveRecording</td>
+    <td>Save the video to your server at the url specified by <code>uploadURL</code></td>
+  </tr>
+  <tr>
+    <td>trashRecording</td>
+    <td>Clear the buffer, trash the current video, and reset everything so the user can start over.</td>
+  </tr>
+  <tr>
+    <td>getBrowser</td>
+    <td>A simple browser detection method used by the plugin, exposed for your convenience.</td>
+  </tr>
+</table>
+
+<h2>Events</h2>
+<p>The plugin also fires events for almost everything it does. This allows you to do things like gracefully handle errors, togle visability/state of record and save controls, etc.</p>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>camera_capture.browser_not_supported</td>
+    <td>Triggered if the user's browser does not support the MediaRecorder API</td>
+  </tr>
+  <tr>
+    <td>camera_capture.start_recording</td>
+    <td>Triggered when the plguin begins capturing video.</td>
+  </tr>
+  <tr>
+    <td>camera_capture.stop_recording</td>
+    <td>Triggered when the plugin stops capturing video.</td>
+  </tr>
+  <tr>
+    <td>camera_capture.init_save</td>
+    <td>Triggered when <code>saveRecording</code> is called.</td>
+  </tr>
+  <tr>
+    <td>camera_capture.save_success</td>
+    <td>Triggered when <code>saveRecording</code> finishes successfully.</td>
+  </tr>
+  <tr>
+    <td>camera_capture.save_failed</td>
+    <td>Triggered when <code>saveRecording</code> fails its AJAX request.</td>
+  </tr>
+  <tr>
+    <td>camera_capture.stream_error</td>
+    <td>Triggered when there is a stream error while capturing video.</td>
+  </tr>
+</table>
+
+<footer>jQuery Camera Capture by <a href="http://kellishaver.com">Kelli Shaver</a></footer>
+</div>
+</body>
