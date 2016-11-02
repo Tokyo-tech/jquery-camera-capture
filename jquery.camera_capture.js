@@ -81,8 +81,8 @@
         if (plugin.settings.scaleVideo) {
           video_window.css({ 
             width: Math.ceil(plugin.settings.width * plugin.settings.videoScaleFactor) + 'px',
-            height: Math.ceil(plugin.settings.height * plugin.settings.videoScaleFactor) + 'px'}
-          );
+            height: Math.ceil(plugin.settings.height * plugin.settings.videoScaleFactor) + 'px'
+          });
         }
 
         plugin.element.append(video_window)
@@ -124,7 +124,7 @@
       video.volume = 1;
       video.currentTime = 0;
     };
-    $(window).trigger('camera_capture.start_recording', [plugin.settings.maxVideoLength]);
+    $(window).trigger('camera_capture.start_recording');
   }
 
   var _uuid = function() {
